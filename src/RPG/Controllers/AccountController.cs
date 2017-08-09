@@ -17,7 +17,6 @@ namespace RPG.Controllers
         private readonly RPGDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private ApplicationUser currentUser;
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RPGDbContext db)
         {
@@ -29,7 +28,7 @@ namespace RPG.Controllers
 
         public IActionResult Index()
         {
-            //Debug.WriteLine("***********************\nHELLOWORLD\n***********************");
+            Debug.WriteLine("***********************\nHELLOWORLD\n***********************");
             return View();
         }
 
@@ -61,7 +60,6 @@ namespace RPG.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            currentUser = new ApplicationUser { UserName = model.Email };
             Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
             if (result.Succeeded)
             {
@@ -83,10 +81,12 @@ namespace RPG.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete()
         {
+
             await _signInManager.SignOutAsync();
-            //var user = new ApplicationUser { UserName = User.Identity.Name };
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
             IdentityResult result = await _userManager.DeleteAsync(currentUser);
-            Debug.WriteLine("***********************\nHELLOWORLD\n***********************");
+            Debug.WriteLine("\n***********************\n***********************\nMIDST OF DELETE METHOD\n***********************\n***********************");
             return RedirectToAction("Index");
         }
     }
