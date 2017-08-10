@@ -11,6 +11,10 @@ namespace RPG.Models
         {
 
         }
+        public RPGDbContext()
+        {
+
+        }
 
         public DbSet<Door> Doors { get; set; }
         public DbSet<Key> Keys { get; set; }

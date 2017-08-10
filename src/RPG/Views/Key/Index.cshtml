@@ -1,0 +1,47 @@
+﻿
+@model IEnumerable<RPG.Models.Key>
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Keys</h2>
+<hr />
+<p>
+    @Html.ActionLink("Add New Key", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Shape)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var loc in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => loc.Shape) --
+            </td>
+            <td>
+                @Html.DisplayFor(model => loc.Color) --
+            </td>
+            <td>
+                @Html.DisplayFor(model => loc.Size) --
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = loc.KeyId })
+                @Html.ActionLink("Details", "Details", new { id = loc.KeyId })
+                @Html.ActionLink("Delete", "Delete", new { id = loc.KeyId })
+            </td>
+        </tr>
+    }
+</table>

@@ -11,7 +11,7 @@ namespace RPG.Models
     public class Key
     {
         [Key]
-        public int ItemId { get; set; }
+        public int KeyId { get; set; }
         public string Shape { get; set; }
         public string Color { get; set; }
         public string Size { get; set; }
