@@ -12,7 +12,7 @@ namespace RPG.Models
     {
         [Key]
         public int DoorId { get; set; }
-        public virtual ICollection<Room> Rooms { get; set; }
+        //public virtual ICollection<Room> Rooms { get; set; }
         public string Shape { get; set; }
         public string Color { get; set; }
         public string Size { get; set; }

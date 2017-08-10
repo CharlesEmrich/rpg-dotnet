@@ -172,6 +172,76 @@ namespace RPG.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("RPG.Models.Door", b =>
+                {
+                    b.Property<int>("DoorId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Color");
+
+                    b.Property<int?>("RoomId");
+
+                    b.Property<string>("Shape");
+
+                    b.Property<string>("Size");
+
+                    b.HasKey("DoorId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Doors");
+                });
+
+            modelBuilder.Entity("RPG.Models.Key", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Color");
+
+                    b.Property<int?>("PlayerId");
+
+                    b.Property<int?>("RoomId");
+
+                    b.Property<string>("Shape");
+
+                    b.Property<string>("Size");
+
+                    b.HasKey("ItemId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Keys");
+                });
+
+            modelBuilder.Entity("RPG.Models.Player", b =>
+                {
+                    b.Property<int>("PlayerId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("RoomId");
+
+                    b.HasKey("PlayerId");
+
+                    b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("RPG.Models.Room", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("RoomId");
+
+                    b.ToTable("Rooms");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -207,6 +277,24 @@ namespace RPG.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RPG.Models.Door", b =>
+                {
+                    b.HasOne("RPG.Models.Room")
+                        .WithMany("Doors")
+                        .HasForeignKey("RoomId");
+                });
+
+            modelBuilder.Entity("RPG.Models.Key", b =>
+                {
+                    b.HasOne("RPG.Models.Player")
+                        .WithMany("Keys")
+                        .HasForeignKey("PlayerId");
+
+                    b.HasOne("RPG.Models.Room")
+                        .WithMany("Keys")
+                        .HasForeignKey("RoomId");
                 });
         }
     }
